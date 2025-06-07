@@ -58,7 +58,8 @@ collage-voting-system-project/
 
 ```bash
 git clone https://github.com/reddy-gowthami/Votexus.git
-cd collage-voting-system-project
+cd collage-voting-system-project 
+```
 
 🗝️ 2. Set Up Environment Variables
 Inside the server/ directory, create a .env file:
@@ -69,25 +70,28 @@ JWT_SECRET=your_jwt_secret
 Replace values with your actual MongoDB URI and a secure secret key.
 📦 3. Install Dependencies
 Backend:
-
-bash
+```bash
 cd server
-npm install
+npm install 
+```
 Frontend:
 
-bash
+```bash
 cd ../client
 npm install
+```
 🏃 4. Run the Project
 ✅ Start the frontend:
 
-bash
+```bash
 npm start
+```
 ✅ In another terminal, start the backend:
 
-bash
+```bash
 cd server
 npm run dev
+```
 🌐 Running URLs (Localhost)
 Frontend: http://localhost:3000
 
