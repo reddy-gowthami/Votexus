@@ -47,8 +47,11 @@ To digitize and secure the voting process in educational institutions, eliminate
 ### 📁 Folder Structure
 
 collage-voting-system-project/
+
 ├── client/ # React frontend
+
 ├── server/ # Node.js backend
+
 └── .env # Environment variables (optional in root)
 
 
@@ -62,12 +65,18 @@ cd collage-voting-system-project
 ```
 
 🗝️ 2. Set Up Environment Variables
+
 Inside the server/ directory, create a .env file:
+
 PORT=5000
+
 MONGO_URL=your_mongodb_connection_string
+
 JWT_SECRET=your_jwt_secret
 
+
 Replace values with your actual MongoDB URI and a secure secret key.
+
 📦 3. Install Dependencies
 
 Backend:
