@@ -69,6 +69,7 @@ JWT_SECRET=your_jwt_secret
 
 Replace values with your actual MongoDB URI and a secure secret key.
 📦 3. Install Dependencies
+
 Backend:
 ```bash
 cd server
@@ -94,7 +95,6 @@ npm run dev
 ```
 🌐 Running URLs (Localhost)
 Frontend: http://localhost:3000
-
 Backend: http://localhost:5000
 
 📌 Note
