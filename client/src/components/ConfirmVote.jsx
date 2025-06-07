@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { candidates } from '../data'
 import { useDispatch, useSelector } from 'react-redux'
 import { UiActions } from '../store/ui-slice'
+import axios from 'axios'
+import {voteActions } from '../store/vote-slice'
+import { useNavigate } from 'react-router-dom'
 
-const ConfirmVote = () => {
+const ConfirmVote = ({selectedElection}) => {
     const [modalCandidate, setModalCandidate] =useState({})
 
     const dispatch=useDispatch()
+    const navigate=useNavigate()
 
     //close confirm vote modal
     const closeCandidateModal =()=>{
@@ -14,14 +17,32 @@ const ConfirmVote = () => {
     }
     //get selected candidate id from redux store
     const selectedVoteCandidate=useSelector(state => state.vote.selectedVoteCandidate)
+    const token=useSelector(state => state?.vote?.currentVoter?.token)
+    const currentVoter=useSelector(state => state?.vote?.currentVoter)
 
-    //get the selected candidate
-    const fetchCandidate =() =>{
-        candidates.find(candidate =>{
-            if(candidate.id === selectedVoteCandidate){
-                setModalCandidate(candidate)
-            }
-        })
+
+    //get the candidate selected to be voted for
+    const fetchCandidate = async () =>{
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/candidates/${selectedVoteCandidate}`,{withCredentials:true,headers:{Authorization: `Bearer ${token}`}})
+            setModalCandidate(await response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    //confirm vote for selected candidate
+    const confirmVote = async () =>{
+        try {
+            const response = await axios.patch(`${process.env.REACT_APP_API_URL}/candidates/${selectedVoteCandidate}`,{selectedElection},{withCredentials:true,headers: {Authorization: `Bearer ${token}`}})
+            const voteResult = await response.data;
+            dispatch(voteActions.changeCurrentVoter({...currentVoter,votedElections:voteResult}))
+            navigate('/congrats')
+        } catch (error) {
+            console.log(error)
+        }
+
+        closeCandidateModal()
     }
 
 
@@ -43,7 +64,7 @@ const ConfirmVote = () => {
             modalCandidate?.motto}</p>
             <div className="confirm__vote-cta">
                 <button className="btn" onClick={closeCandidateModal}>Cancel</button>
-                <button className="btn primary">Confirm</button>
+                <button className="btn primary" onClick={confirmVote}>Confirm</button>
             </div>
         </div>
     </section>

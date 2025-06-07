@@ -23,3 +23,4 @@ const CandidateRating = ({fullName,image,voteCount,totalVotes}) => {
 }
 
 export default CandidateRating
+

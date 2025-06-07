@@ -1,6 +1,17 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
 const Congrats = () => {
+  const token=useSelector(state=>state?.vote?.currentVoter?.token)
+  const navigate=useNavigate()
+
+  //ACCESS CONTROL
+  useEffect(()=>{
+    if(!token){
+      navigate('/')
+    }
+  },[])
+
   return (
     <section className="congrats">
       <div className="container congrats__container">
@@ -15,3 +26,4 @@ const Congrats = () => {
 }
 
 export default Congrats
+
